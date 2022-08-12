@@ -66,3 +66,8 @@ def get_log_likelihood(x, y, model_results=False, b0=False, b1=False):
     # calculate logs
     log_like = calculate_logs(res_ms, y)
     return log_like
+
+
+def generate_sigmoid_points(b0, b1, x):
+    res = 1/(1+np.exp(-(b1*x + b0)))
+    return res
