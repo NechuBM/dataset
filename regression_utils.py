@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import math
 
 def representar_regresion_logistica(b0, b1):
@@ -12,9 +13,15 @@ def representar_regresion_logistica(b0, b1):
 
     y_sig = generate_sigmoid_points(b0, b1, x)
     y = b1*x + b0
+    
+    # calculo de EMV
+    df_pre = pd.DataFrame({'x_val': x_to_classify})
+    df_pre['incercept'] = 1
+    emv = get_log_likelihood(df_pre[['incercept', 'x_val']], y_to_classify, model_results=False, b0=b0, b1=b1)
 
     # representacion grafica
     fig, (ax1, ax2) = plt.subplots(nrows=1, ncols=2, figsize=(15,5))
+    fig.suptitle(f'EMV: {round(emv, 3)}')
 
     ax1.set_title('Función Sigmoide')
     ax1.scatter(x_to_classify, y_to_classify)
